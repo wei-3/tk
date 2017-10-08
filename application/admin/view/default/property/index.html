@@ -37,17 +37,17 @@
 				{notempty name="list"}
 				{volist name="list" id="property"}
 					<tr>
-						<td><input class="ids row-selected" type="checkbox" name="" id="" value="{$property['id']}"> </td>
+						<td><input class="ids row-selected" type="checkbox" name="id[]" id="" value="{$property['id']}"> </td>
 						<td>{$property.repair_number}</td>
 						<td>{$property.name}</td>
 						<td>{$property.tel}</td>
 						<td>{$property.address}</td>
 						<td>{$property.problem}</td>
                         <td>{$property.create_time|time_format}</td>
-                        <td>{$property.status}</td>
+                        <td>{$property.status_text}</td>
 						<td>
 							<a title="编辑" href="{:url('edit?id='.$property['id'])}">编辑</a>
-							<a href="{:url('setStatus?ids='.$property['id'].'&status='.abs(1-$property['status']))}" class="ajax-get">{$property.status|show_status_op}</a>
+							<a href="{:url('setStatus?ids='.$property['id'].'&status='.abs(1-$property['status']))}" class="ajax-get">{$property.status|show_handle_op}</a>
 							<a class="confirm ajax-get" title="删除" href="{:url('del?id='.$property['id'])}">删除</a>
 						</td>
 					</tr>
@@ -57,6 +57,9 @@
 				{/notempty}
 			</tbody>
 		</table>
+		<div class="page">
+			{$_page}
+		</div>
 	</div>
 {/block}
 

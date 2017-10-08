@@ -1,0 +1,152 @@
+{extend name="public/base" /}
+
+{block name="body"}
+<script type="text/javascript" src="/static/static/uploadify/jquery.uploadify.min.js"></script>
+	<div class="main-title">
+		<h2>添加租售</h2>
+	</div>
+	<form action="{:url()}" method="post" class="form-horizontal" enctype="multipart/form-data">
+		<div class="form-item">
+			<label class="item-label" >发布人<span class="check-tips"></span></label>
+			<div class="controls">
+				<input type="text" class="text input-large" name="name" value="{$info.name|default=''}">
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label" >标题<span class="check-tips"></span></label>
+			<div class="controls">
+				<input type="text" class="text input-large" name="title" value="{$info.title|default=''}">
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label" >价格<span class="check-tips"></span></label>
+			<div class="controls">
+				<input type="text" class="text input-large" name="price" value="{$info.price|default=''}">
+				<select style="width: 200px;" name="unit">
+					<option value="元/月">元/月</option>
+					<option value="万元">万元</option>
+				</select>
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label" >类型<span class="check-tips"></span></label>
+			<div class="controls">
+				<select style="width: 200px;" name="type">
+					<option value="出租">出租</option>
+					<option value="销售">销售</option>
+				</select>
+			</div>
+		</div>
+		<div class="controls">
+			<input type="file" id="upload_picture_path">
+			<input type="hidden" name="path" id="cover_id_path" value="{$info.path|default=''}"/>
+			<div class="upload-img-box">
+			</div>
+		</div>
+		<script type="text/javascript">
+            //上传图片
+			/* 初始化上传插件 */
+			var path=$('#cover_id_path').val();
+			if(path){
+                $("#cover_id_path").parent().find('.upload-img-box').html(
+                    '<div class="upload-pre-item"><img src="' + path + '"/></div>'
+                );
+			}
+//			alert(path);
+            $("#upload_picture_path").uploadify({
+                "height": 30,
+                "swf": "__PUBLIC__/static/uploadify/uploadify.swf",
+                "fileObjName": "download",
+                "buttonText": "上传图片",
+                "uploader": "{:url('File/uploadPicture',array('session_id'=>session_id()))}",
+                "width": 120,
+                'removeTimeout': 1,
+                'fileTypeExts': '*.jpg; *.png; *.gif;',
+                "onUploadSuccess": uploadPicturepath,
+                'onFallback': function () {
+                    alert('未检测到兼容版本的Flash.');
+                }
+            });
+            function uploadPicturepath(file, data) {
+                var data = $.parseJSON(data);
+                var src = '';
+                if (data.status) {
+                    $("#cover_id_path").val(data.path);
+                    src = data.url || '' + data.path
+                    $("#cover_id_path").parent().find('.upload-img-box').html(
+                        '<div class="upload-pre-item"><img src="' + src + '"/></div>'
+                    );
+
+                } else {
+                    updateAlert(data.info);
+                    setTimeout(function () {
+                        $('#top-alert').find('button').click();
+                        $(that).removeClass('disabled').prop('disabled', false);
+                    }, 1500);
+                }
+            }
+		</script>
+		<!--<img src="{$info.path|default=''}" style="width: 120px"/>-->
+		<div class="controls">
+			<label class="item-label">内容<span class="check-tips"></span></label>
+			<textarea id="content" name="content">{$info.content|default=''}</textarea>
+		</div>
+		<script type="text/javascript" src="__PUBLIC__/static/ueditor/ueditor.config.js"></script>
+		<script type="text/javascript" src="__PUBLIC__/static/ueditor/ueditor.all.min.js"></script>
+		<!--建议手动加在语言，避免在ie下有时因为加载语言失败导致编辑器加载失败-->
+		<!--这里加载的语言文件会覆盖你在配置项目里添加的语言类型，比如你在配置项目里配置的是英文，这里加载的中文，那最后就是中文-->
+		<script type="text/javascript" src="__PUBLIC__/static/ueditor/lang/zh-cn/zh-cn.js"></script>
+		<script type="text/javascript">
+            UE.getEditor('content',{    //content为要编辑的textarea的id
+                initialFrameWidth: 1100,   //初始化宽度
+                initialFrameHeight: 500,   //初始化高度
+            });
+		</script>
+
+		<div class="form-item">
+			<label class="item-label">简单描述<span class="check-tips"></span></label>
+			<div class="controls">
+				<label class="textarea input-large">
+					<textarea name="intro">{$info.intro|default=''}</textarea>
+				</label>
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">电话<span class="check-tips"></span></label>
+			<div class="controls">
+				<input type="text" class="text input-large" name="tel" value="{$info.tel|default=''}">
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">截止时间<span class="check-tips"><strong></strong></span></label>
+			<div class="controls">
+				<input type="text" name="end_time" class="text time" value="{$info.end_time|default=''}" placeholder="截止时间" />
+			</div>
+		</div>
+		<div class="form-item">
+			<input type="hidden" name="id" value="{$info.id|default=''}">
+			<button class="btn submit-btn ajax-posts" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+			<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+		</div>
+	</form>
+{/block}
+{block name="script"}
+<link href="__PUBLIC__/static/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+{php}if(config('COLOR_STYLE')=='blue_color') echo '<link href="__PUBLIC__/static/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';{/php}
+<link href="__PUBLIC__/static/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/static/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" charset="utf-8">
+	//导航高亮
+	highlight_subnav('{:url('index')}');
+    $(function(){
+        $('.time').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true
+        });
+        showTab();
+    })
+</script>
+{/block}

@@ -1,0 +1,24 @@
+{empty name="list"}
+<div class="text-info text-center lead">我是有底线的</div>
+{else/}
+{volist name="list" id="active"}
+<div class="container-fluid">
+        <div class="row noticeList">
+            <a href="{:url('Active/detail?id='.$active['id'])}">
+            <div class="col-xs-2">
+                <img class="noticeImg img-circle" src="{:get_cover($active['cover_id'],$field = path)}" alt="该图片被外星人拉走了"/>
+            </div>
+            <div class="col-xs-10">
+                <p class="title">{$active.title}</p>
+                <p class="intro">{$active.description}</p>
+                <p class="info">浏览: {$active.view} <span class="pull-right">{$active.create_time}</span></p>
+            </div>
+            </a>
+        </div>
+    </div>
+{/volist}
+<div class="text-center">
+    <button type="button" class="btn btn-default btn_load btn-block" onclick="loadPage({$no})">获取跟多~~~</button>
+</div>
+{/empty}
+

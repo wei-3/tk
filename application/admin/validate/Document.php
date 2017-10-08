@@ -51,13 +51,13 @@ class Document extends Base{
      * @param string $name
      * @return true无重复，false已存在 
      */
-    protected function checkName($value,$rlue='',$data){ 
+    protected function checkName($value,$rlue='',$data){
     	$name        = $data['name'];
     	$category_id = $data['category_id'];
     	$id          = $data['id']?$data['id']:0;
-    
+
     	$map = array('name' => $name, 'id' => array('neq', $id), 'status' => array('neq', -1));
- 
+
     	$category = get_category($category_id);
     	if ($category['pid'] == 0) {
     		$map['category_id'] = $category_id;
@@ -66,10 +66,10 @@ class Document extends Base{
     		$root               = array_shift($parent);
     		$map['category_id'] = array('in', model("Category")->getChildrenId($root['id']));
     	}
-    
+
     	$res = \think\Db::name('Document')->where($map)->value('id');
     	if ($res) {
-    		return false;
+    		return true;
     	}
     	return true;
     }

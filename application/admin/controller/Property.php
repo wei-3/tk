@@ -1,7 +1,7 @@
 <?php
 namespace app\admin\controller;
 class Property extends Admin{
-    public function Index(){
+    public function index(){
         $name=input('name');
         $map=array('status' => array('gt', -1));
         if(is_numeric($name)){
@@ -9,28 +9,26 @@ class Property extends Admin{
         }else{
             $map['name']    =   array('like', '%'.(string)$name.'%');
         }
-        $list = \think\Db::name('Property')->where($map)->select();
-//        foreach ($list as $key=>$value){
-//            if($list[$key]['status'] == 0){
-//                $list[$key]['status'] = '暂未处理';
-//            }else{
-//                $list[$key]['status'] = '处理完成';
-//            }
-//        }
+//        $list = \think\Db::name('Property')->where($map)->paginate(5);
+        $list = $this->lists('Property',$map,'id desc');
+        to_handle($list);
+        //分页
+        Cookie('__forward__',$_SERVER['REQUEST_URI']);
+//        $page = $list->render();
+//        $this->assign('page', $page);
         $this->assign('list', $list);
         return $this->fetch();
     }
-    public function Add(){
+    public function add(){
         if(request()->isPost()){
             $Property = model('property');
             $post_data=$this->request->post();
             $validate = validate('property');
             $post_data['repair_number']=date("Ymd",time()).sprintf('%05d',rand(1000,9999));
-            $post_data['create_time']=time();
             if(!$validate->check($post_data)){
                 return $this->error($validate->getError());
             }
-            $data = $Property->insert($post_data);
+            $data = $Property->create($post_data);
 //            var_dump($post_data);exit;
             if($data){
 
@@ -49,8 +47,8 @@ class Property extends Admin{
         if($this->request->isPost()){
             $postdata = \think\Request::instance()->post();
 //            var_dump($postdata);exit;
-            $Property = \think\Db::name("property");
-            $postdata['update_time']=time();
+            $Property = \think\Loader::model("property");
+//            $postdata['update_time']=time();
             $data = $Property->update($postdata);
             if($data !== false){
                 $this->success('编辑成功', url('index'));
@@ -83,4 +81,5 @@ class Property extends Admin{
             $this->error('删除失败！');
         }
     }
+
 }

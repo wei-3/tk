@@ -161,6 +161,13 @@ function show_status_op($status) {
         default : return    false;      break;
     }
 }
+function show_handle_op($status) {
+    switch ($status){
+        case 0  : return    '待处理';     break;
+        case 1  : return    '已处理';     break;
+        default : return    false;      break;
+    }
+}
 
 /**
  * 获取文档的类型文字
@@ -231,6 +238,35 @@ function int_to_string(&$data,$map=array('status'=>array(1=>'正常',-1=>'删除
     return $data;
 }
 
+function int_to_s(&$data,$map=array('status'=>array(1=>'审核通过',0=>'审核未通过'))) {
+    if($data === false || $data === null ){
+        return $data;
+    }
+    $data = (array)$data;
+    foreach ($data as $key => $row){
+        foreach ($map as $col=>$pair){
+            if(isset($row[$col]) && isset($pair[$row[$col]])){
+                $data[$key][$col.'_text'] = $pair[$row[$col]];
+            }
+        }
+    }
+    return $data;
+}
+
+function to_handle(&$data,$map=array('status'=>array(1=>'处理完成',0=>'未处理'))) {
+    if($data === false || $data === null ){
+        return $data;
+    }
+    $data = (array)$data;
+    foreach ($data as $key => $row){
+        foreach ($map as $col=>$pair){
+            if(isset($row[$col]) && isset($pair[$row[$col]])){
+                $data[$key][$col.'_text'] = $pair[$row[$col]];
+            }
+        }
+    }
+    return $data;
+}
 /**
  * 动态扩展左侧菜单,base.html里用到 * @author 艺品网络 <twothink.cn>
  */

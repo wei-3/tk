@@ -1,0 +1,61 @@
+{extend name="public/base" /}
+
+{block name="body"}
+	<div class="main-title">
+		<h2>活动添加</h2>
+	</div>
+	<form action="{:url()}" method="post" class="form-horizontal">
+		<div class="form-item">
+			<label class="item-label" >申请人<span class="check-tips"></span></label>
+			<div class="controls">
+				<input type="text" class="text input-large" name="name" value="{$info.name|default=''}">
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">活动名称<span class="check-tips"></span></label>
+			<div class="controls">
+				<input type="text" class="text input-large" name="active_name" value="{$info.active_name|default=''}">
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">活动时间<span class="check-tips"><strong></strong></span></label>
+			<div class="controls">
+				<input type="text" name="application_time" class="text time" value="" placeholder="请选择申请时间" />-
+				<input type="text" name="end_time" class="text time" value="" placeholder="请选择结束时间" />
+			</div>
+		</div>
+		<div class="form-item">
+			<label class="item-label">活动描述<span class="check-tips">（简单描述）</span></label>
+			<div class="controls">
+				<label class="textarea input-large">
+					<textarea name="active_intro">{$info.active_intro|default=''}</textarea>
+				</label>
+			</div>
+		</div>
+		<div class="form-item">
+			<input type="hidden" name="id" value="{$info.id|default=''}">
+			<button class="btn submit-btn ajax-posts" id="submit" type="submit" target-form="form-horizontal">确 定</button>
+			<button class="btn btn-return" onclick="javascript:history.back(-1);return false;">返 回</button>
+		</div>
+	</form>
+{/block}
+{block name="script"}
+<link href="__PUBLIC__/static/datetimepicker/css/datetimepicker.css" rel="stylesheet" type="text/css">
+{php}if(config('COLOR_STYLE')=='blue_color') echo '<link href="__PUBLIC__/static/datetimepicker/css/datetimepicker_blue.css" rel="stylesheet" type="text/css">';{/php}
+<link href="__PUBLIC__/static/datetimepicker/css/dropdown.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="__PUBLIC__/static/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script type="text/javascript" src="__PUBLIC__/static/datetimepicker/js/locales/bootstrap-datetimepicker.zh-CN.js" charset="UTF-8"></script>
+<script type="text/javascript" charset="utf-8">
+	//导航高亮
+	highlight_subnav('{:url('index')}');
+    $(function(){
+        $('.time').datetimepicker({
+            format: 'yyyy-mm-dd hh:ii',
+            language:"zh-CN",
+            minView:2,
+            autoclose:true
+        });
+        showTab();
+    })
+</script>
+{/block}

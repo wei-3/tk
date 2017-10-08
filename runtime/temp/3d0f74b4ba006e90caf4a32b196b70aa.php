@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:84:"D:\phpStudy\WWW\twothink\public/../application/admin/view/default/property\edit.html";i:1506670115;s:82:"D:\phpStudy\WWW\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:84:"D:\phpStudy\WWW\twothink\public/../application/admin/view/default/property\edit.html";i:1506750569;s:82:"D:\phpStudy\WWW\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -102,9 +102,9 @@
             
 	<div class="main-title">
 		<h2>
-			<?php echo !empty($info['id'])?'编辑':'新增'; ?>导航
-			<?php if(!(empty($pid) || (($pid instanceof \think\Collection || $pid instanceof \think\Paginator ) && $pid->isEmpty()))): ?>"><?php echo $parent['title']; ?></a>&nbsp;]
-			<?php endif; ?>
+			<!--<?php echo !empty($info['id'])?'编辑':'新增'; ?>导航-->
+			<!--<?php if(!(empty($pid) || (($pid instanceof \think\Collection || $pid instanceof \think\Paginator ) && $pid->isEmpty()))): ?>"><?php echo $parent['title']; ?></a>&nbsp;]-->
+			<!--<?php endif; ?>-->
 		</h2>
 	</div>
 	<form action="<?php echo url(); ?>" method="post" class="form-horizontal">

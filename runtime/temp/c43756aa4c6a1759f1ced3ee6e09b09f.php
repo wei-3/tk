@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:85:"D:\phpStudy\WWW\twothink\public/../application/admin/view/default/property\index.html";i:1506734364;s:82:"D:\phpStudy\WWW\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:2:{s:85:"D:\phpStudy\WWW\twothink\public/../application/admin/view/default/property\index.html";i:1506752542;s:82:"D:\phpStudy\WWW\twothink\public/../application/admin/view/default/public\base.html";i:1496373782;}*/ ?>
 <!doctype html>
 <html>
 <head>
@@ -135,17 +135,17 @@
 			<tbody>
 				<?php if(!(empty($list) || (($list instanceof \think\Collection || $list instanceof \think\Paginator ) && $list->isEmpty()))): if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$property): $mod = ($i % 2 );++$i;?>
 					<tr>
-						<td><input class="ids row-selected" type="checkbox" name="" id="" value="<?php echo $property['id']; ?>"> </td>
+						<td><input class="ids row-selected" type="checkbox" name="id[]" id="" value="<?php echo $property['id']; ?>"> </td>
 						<td><?php echo $property['repair_number']; ?></td>
 						<td><?php echo $property['name']; ?></td>
 						<td><?php echo $property['tel']; ?></td>
 						<td><?php echo $property['address']; ?></td>
 						<td><?php echo $property['problem']; ?></td>
                         <td><?php echo time_format($property['create_time']); ?></td>
-                        <td><?php echo $property['status']; ?></td>
+                        <td><?php echo $property['status_text']; ?></td>
 						<td>
 							<a title="编辑" href="<?php echo url('edit?id='.$property['id']); ?>">编辑</a>
-							<a href="<?php echo url('setStatus?ids='.$property['id'].'&status='.abs(1-$property['status'])); ?>" class="ajax-get"><?php echo show_status_op($property['status']); ?></a>
+							<a href="<?php echo url('setStatus?ids='.$property['id'].'&status='.abs(1-$property['status'])); ?>" class="ajax-get"><?php echo show_handle_op($property['status']); ?></a>
 							<a class="confirm ajax-get" title="删除" href="<?php echo url('del?id='.$property['id']); ?>">删除</a>
 						</td>
 					</tr>
@@ -154,6 +154,9 @@
 				<?php endif; ?>
 			</tbody>
 		</table>
+		<div class="page">
+			<?php echo $_page; ?>
+		</div>
 	</div>
 
         </div>

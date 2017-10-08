@@ -1,0 +1,41 @@
+{extend name="public/base" /}
+
+{block name="body"}
+	<div class="main-title">
+		<h2>验证详情</h2>
+	</div>
+<form action="" method="post" class="form-horizontal">
+	<div class="form-item">
+		<span class="item-label">会员姓名：<span class="check-tips">{$info.vip_name}</span></span>
+	</div>
+	<div class="form-item">
+		<span class="item-label">业主姓名：<span class="check-tips">{$info.name}</span></span>
+	</div>
+	<div class="form-item">
+		<span class="item-label">业主电话：<span class="check-tips">{$info.tel}</span></span>
+	</div>
+	<div class="form-item">
+		<span class="item-label">住户编号：<span class="check-tips">{$info.number}</span></span>
+	</div>
+	<div class="form-item">
+		<span class="item-label">小区名字：<span class="check-tips">{$info.cell_name}</span></span>
+	</div>
+	<div class="form-item">
+		<span class="item-label">身份证：<span class="check-tips">{$info.id_card}</span></span>
+	</div>
+	<div class="form-item">
+			<span class="item-label">与业主关系：<span class="check-tips">
+				{$info.relationship}
+									</span></span>
+	</div>
+	<div class="form-item">
+		<span class="item-label">认证时间：<span class="check-tips">{$info.create_time}</span></span>
+	</div>
+</form>
+{/block}
+{block name="script"}
+<script type="text/javascript" charset="utf-8">
+	//导航高亮
+	highlight_subnav('{:url('index')}');
+</script>
+{/block}
