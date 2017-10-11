@@ -1,0 +1,41 @@
+
+
+{block name="body"}
+<div class="main-title">
+    <h2>我的资料</h2>
+</div>
+<form action="" method="post" class="form-horizontal">
+    <div class="form-item">
+        <span class="item-label">用户名：<span class="check-tips">{$user.name}</span></span>
+    </div>
+    <div class="form-item">
+        <span class="item-label">业主姓名：<span class="check-tips">{$owner.name}</span></span>
+    </div>
+    <div class="form-item">
+        <span class="item-label">业主电话：<span class="check-tips">{$owner.tel}</span></span>
+    </div>
+    <div class="form-item">
+        <span class="item-label">住户编号：<span class="check-tips">{$owner.number}</span></span>
+    </div>
+    <div class="form-item">
+        <span class="item-label">小区名字：<span class="check-tips">{$owner.cell_name}</span></span>
+    </div>
+    <div class="form-item">
+        <span class="item-label">身份证：<span class="check-tips">{$owner.id_card}</span></span>
+    </div>
+    <div class="form-item">
+			<span class="item-label">与业主关系：<span class="check-tips">
+				{$owner.relationship}
+									</span></span>
+    </div>
+    <div class="form-item">
+        <span class="item-label">认证时间：<span class="check-tips">{$owner.create_time}</span></span>
+    </div>
+</form>
+{/block}
+{block name="script"}
+<script type="text/javascript" charset="utf-8">
+    //导航高亮
+    highlight_subnav('{:url('index')}');
+</script>
+{/block}

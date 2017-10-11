@@ -2,6 +2,7 @@
 namespace app\home\controller;
 
 use app\admin\model\Member;
+use app\home\model\Document;
 
 class Property extends Home{
     public function property(){
@@ -56,14 +57,46 @@ class Property extends Home{
         }else{
             $id=is_login();
             $user=\app\home\model\Owner::get(['member_id'=>$id]);
-            $userinfo=Member::get(['uid'=>$id]);
-            $this->assign('user',$user);
-            $this->assign('userinfo',$userinfo);
-            return $this->fetch('index');
+           if($user['status']){
+               $userinfo=Member::get(['uid'=>$id]);
+               $this->assign('user',$user);
+               $this->assign('userinfo',$userinfo);
+               return $this->fetch('index');
+           }else{
+               $this->error('您的业主认证还未通过审核，请耐心等待！', Url('home/index/index'));
+           }
         }
     }
-
+    //我报名的活动
+    public function my_active(){
+        if(!is_login()){
+            $this->error('您还没有登录，请先登录！', Url('user/login/index'));
+        }else{
+            return $this->fetch();
+        }
+    }
+    //我报名的活动ajax分页
+    public function my_page($page=1){
+        $id=is_login();
+        $list=\app\admin\model\Active::where(['user_id'=>$id])->paginate(2);
+        $this->assign('list',$list);
+        $this->assign('no',++$page);
+        return $this->fetch();
+    }
     public function find(){
         return $this->fetch('find');
+    }
+    //我的资料
+    public function my_profile(){
+        if(!is_login()){
+            $this->error('您还没有登录，请先登录！', Url('user/login/index'));
+        }else{
+            $id=is_login();
+            $owner=\app\home\model\Owner::get(['member_id'=>$id]);
+            $user=Document::get(['uid'=>$id]);
+            $this->assign('owner',$owner);
+            $this->assign('user',$user);
+            return $this->fetch();
+        }
     }
 }

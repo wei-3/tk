@@ -42,8 +42,8 @@ class Active extends Home{
             //获取到document表中数据
 //            $document = model('document')->where('id='.$id)->find();
             $document = Document::get(['id'=>$id]);
-//            var_dump($document['description']);exit;
-            if($document['description']<time()){
+
+            if($document['deadline']<time()){
                 $this->error('该活动已过期，看看其他活动吧', Url('Active/index'));
             }
             $list = \app\admin\model\Active::get(['active_id' =>$id,'user_id'=>$uid]);

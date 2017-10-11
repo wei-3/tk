@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:84:"D:\phpStudy\WWW\twothink\public/../application/home/view/default/property\index.html";i:1507537081;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:88:"D:\phpStudy\WWW\twothink\public/../application/home/view/default/property\my_active.html";i:1507452783;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -43,40 +43,21 @@
         </div>
     </nav>
     <!--导航结束-->
-
-    <div class="container">
-        <div class="blank"></div>
-        <div class="row">
-            <div class="col-xs-3">
-                <img src="/image/5.png" width="60" height="60" />
-            </div>
-            <div class="col-xs-9">
-                <?php echo $userinfo['nickname']; ?><br/>
-                <?php echo $user['cell_name']; ?><br/>
-                积分:<span class="text-danger"><?php echo $userinfo['score']; ?></span>
-                <span class="text-danger pull-right"><a class="ajax-get" href="/Center/sign.html">签到</a></span>
-            </div>
-        </div>
-        <div class="blank"></div>
-        <div class="row text-center myLabel">
-            <div class="col-xs-4 label-danger"><a href="<?php echo url('Property/my_profile'); ?>"><span class="iconfont">&#xe60b;</span>我的资料</a></div>
-            <div class="col-xs-4 label-success"><a href="<?php echo url('Property/my_property'); ?>"><span class="iconfont">&#xe609;</span>我的报修</a></div>
-            <div class="col-xs-4 label-primary"><a href="<?php echo url('Property/my_active'); ?>"><span class="iconfont">&#xe606;</span>报名的活动</a></div>
-        </div>
-        <div class="blank"></div>
-        <div>
-            <ul class="list-group fuwuList">
-                <li class="list-group-item"><a href="diaochawenjuan.html" class="text-danger"><span class="iconfont">&#xe60a;</span>我的缴费账单</a> </li>
-                <li class="list-group-item"><a href="yezhurenzheng.html" class="text-info"><span class="iconfont">&#xe608;</span>我的物业通知</a></li>
-                <li class="list-group-item"><a href="yezhurenzheng.html" class="text-info"><span class="iconfont">&#xe607;</span>我的水电气使用</a></li>
-                <li class="list-group-item"><a href="<?php echo url('Property/my_active'); ?>" class="text-danger"><span class="iconfont">&#xe60a;</span>退出登录</a> </li>
-            </ul>
-        </div>
-    </div>
+    <div id="content"></div>
 </div>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="/jquery-1.11.2.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    var loadPage=function (no) {
+        $.get("<?php echo url('Property/my_page'); ?>",{page:no},function (data) {
+//            alert(data);
+            $(".btn_load").remove();
+            $('#content').append(data);
+        });
+    }
+  loadPage(1);
+</script>
 </body>
 </html>

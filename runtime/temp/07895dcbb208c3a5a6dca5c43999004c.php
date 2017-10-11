@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:82:"D:\phpStudy\WWW\twothink\public/../application/home/view/default/service\tips.html";i:1507291891;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:82:"D:\phpStudy\WWW\twothink\public/../application/home/view/default/service\tips.html";i:1507447574;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -29,16 +29,16 @@
     <nav class="navbar navbar-default navbar-fixed-bottom">
         <div class="container-fluid text-center">
             <div class="col-xs-3">
-                <p class="navbar-text"><a href="index.html" class="navbar-link">首页</a></p>
+                <p class="navbar-text"><a href="<?php echo url('Index/list_index'); ?>" class="navbar-link">首页</a></p>
             </div>
             <div class="col-xs-3">
-                <p class="navbar-text"><a href="#" class="navbar-link">服务</a></p>
+                <p class="navbar-text"><a href="<?php echo url('Service/list_index'); ?>" class="navbar-link">服务</a></p>
             </div>
             <div class="col-xs-3">
-                <p class="navbar-text"><a href="#" class="navbar-link">发现</a></p>
+                <p class="navbar-text"><a href="<?php echo url('Property/find'); ?>" class="navbar-link">发现</a></p>
             </div>
             <div class="col-xs-3">
-                <p class="navbar-text"><a href="#" class="navbar-link">我的</a></p>
+                <p class="navbar-text"><a href="<?php echo url('Property/index'); ?>" class="navbar-link">我的</a></p>
             </div>
         </div>
     </nav>
