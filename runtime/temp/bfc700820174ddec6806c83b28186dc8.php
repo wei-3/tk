@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:83:"D:\phpStudy\WWW\twothink\public/../application/home/view/default/active\detail.html";i:1507447247;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:83:"D:\phpStudy\WWW\twothink\public/../application/home/view/default/active\detail.html";i:1508058794;}*/ ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
